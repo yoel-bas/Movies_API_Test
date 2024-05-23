@@ -1,30 +1,209 @@
+*{
+    padding: 0;
+    margin: 0;
+}
 body{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: black;
     /* background-color: black; */
 }
-input{
+#conatiner{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#name{
     text-align: center;
-    width: 700px;
+    width: 400px;
+    display: none;
     height: 40px;
-    border: solid rgb(0, 0, 0, 0.3) 2px;
     border-radius: 20px;
     font-family: "Roboto Slab", serif;
     font-weight: bold;
     font-size:large;
-    background-color: aliceblue;
+    z-index: 10;
+    color: aliceblue;
+    background-color: rgba(0, 0, 0, 0.413);
+}
+input:focus{
+    background-color: azure;
+}
+#search{
+    /* border: solid yellow; */
+    width: 20%;
 }
 #Search{
+    background-color: antiquewhite;
     border: none;
     background-color: inherit;
     scale: 2;
 }
+
+/* display: grid;
+grid-template-rows: 0.1fr 0.1fr 0.1fr 0.1fr 0.1fr ;
+grid-template-columns: 0.1fr 0.1fr 0.1fr 0.1fr 0.1fr ;
+gap: 40px;
+/* border: solid black; */
+/* width: 100vw; */
+/* height: 100vh; */
+/* background-color: black;  */
 #page{
-    display: grid;
-    grid-template-rows: 0.1fr 0.1fr 0.1fr 0.1fr 0.1fr ;
-    grid-template-columns: 0.1fr 0.1fr 0.1fr 0.1fr 0.1fr ;
-    gap: 40px;
-    border: solid black;
+    /* border: solid yellow; */
+    display: flex;
+    flex-direction: column;
+    width: 100%; 
+    height: 80vh;
+    -webkit-mask-image: linear-gradient( white 50%, transparent);
+    mask-image: linear-gradient(white 50%, transparent);
+}
+#backdrop{
+    width: 100%;
+    height: 90%;
+    position: absolute;
+    -webkit-mask-image: linear-gradient( white 50%, transparent);
+    mask-image: linear-gradient(white 50%, transparent);
+}
+#logo{
+    z-index: 60;
+    width: 200px;
+    border-radius: 10px;
+    position: absolute;
+    top: 30px;
+    left: 60px;
+    border: solid white;
+}
+#navbar{
+    position: relative;
+    top: 10px;
+    /* border: solid red; */
+    z-index: 10;
+    /* border: black solid; */
+    display: flex;
+    /* width: 100vw; */
+    justify-content: end;
+    align-items: center;
+    margin-top: 20px;
+    gap: 15%;
+    /* border: black solid; */
+    /* background-color: aliceblue; */
+}
+
+#division{
+    width: 30%;
+    display: flex;
+    justify-content: space-around;
+    /* border: solid yellow; */
+    font-family: "Reddit Mono", monospace;
+    font-size: larger;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+}
+button{
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+}
+#ico-s{
+    position: relative;
+    top: 5px;
+    font-size: 30px;
+    margin-right: 50px;
+    color: rgb(255, 255, 255);
+    /* border: solid yellow; */
+}
+#movies{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    /* display: grid;
+    /* margin-left: 3%; */
+    /* grid-template-rows: 0.2fr 0.2fr 0.2fr 0.2fr 0.2fr 0.2fr;
+    grid-template-columns: 0.1fr 0.1fr 0.1fr 0.1fr  0.1fr 0.1fr 0.1fr 0.1fr; */
+    /* gap: 100px; */
+    z-index: 100;
+    /* border: yellow solid; */
+    width: 100%;
+    /* height: 25vh; */
+}
+h1{
+    color: white;
+    font-weight: bolder;
+    font-family: "Overpass", sans-serif;
+}
+#line{
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+#movie_title{
+    background-color: inherit;
+    color: white;
+    /* border: solid yellow; */
+    z-index: 100;
+}
+#movie_layout{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow:  rgba(192, 232, 255, 0.412) 0 0  90px;
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* border: solid orange; */
+}
+#movie_layout:hover{
+    scale: 1.08;
+}
+#details{
+    margin-left: 2%;
+    display: inline-flex;
+    flex-direction: column;
+    z-index: 100;
+
+    margin-top: 25%;
+    width: 25%;
+    height: 40% ;
+    gap: 10%;
+}
+#title{
+    color: rgb(255, 255, 255);
+    position: relative;
+    text-align: center;
+    font-weight: bolder;
+}
+#description{
+    color: white;
+    font-family: "Poppins", sans-serif;
+    text-align: left;
+}
+#choice{
+    margin-left: 1%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 30px;
+}
+#icon{
+    border: white solid;
+    border-radius: 25px;
+    width: 40%;
+    height: 50px;
+    font-family: "Poppins", sans-serif;
+    color: white;
+    font-size: x-large;
+
+}
+#icon:hover{
+    background-color: rgb(107, 105, 105);
 }

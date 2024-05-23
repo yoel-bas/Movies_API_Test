@@ -1,11 +1,47 @@
 
 function build_lay(one, two, container){
-    container.append(one)
-    container.append(two)
+    container.prepend(two)
+    container.prepend(one)
 }
 
-
-
+function highrate(array, body){
+    var highrate = 0
+    var k = 0;
+    for(var i = 0; i < 20; i++)
+        if(array.results[i].vote_average > highrate)
+            {
+                highrate = array.results[i].vote_average
+                k = i;
+            }
+                        new_bg = document.createElement('img')
+                        new_bg.id = "backdrop"
+                        new_bg.src = `https://image.tmdb.org/t/p/original${array.results[k].backdrop_path}`;
+                        body.prepend(new_bg);
+                        var title = document.getElementById("title");
+                        var des = document.getElementById("description");
+                        title.innerHTML = array.results[k].title;
+                        des.innerHTML = array.results[k].overview;
+}
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    // The maximum is inclusive and the minimum is inclusive
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  
+  function randomize(array, body){
+      randomNum = getRandomInt(0, 7);
+      console.log(randomNum)
+      new_bg = document.getElementById("backdrop")
+      var title = document.getElementById("title");
+      var des = document.getElementById("description");
+    if(!array.results[randomNum].overview)
+        return
+    title.innerHTML = array.results[randomNum].title.toUpperCase();
+    des.innerHTML = array.results[randomNum].overview;
+    new_bg.src = `https://image.tmdb.org/t/p/original${array.results[randomNum].backdrop_path}`;
+    // body.prepend(new_bg);
+}
 async function set()
 { 
     const options = {
@@ -16,17 +52,45 @@ async function set()
         }
     };
     try {
-        const body = document.body;
-        const homeResp = await fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options);
+        const movies = document.getElementById("movies");
+        const body = document.getElementById("page");
+        var i = 5;
+        const homeResp = await fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=100', options);
         if (homeResp.ok) {
             var data_home = await homeResp.json();
-            // console.log(data_home);
-            console.log(data_home.results[0].backdrop_path);
-            for (var i = 0; i < data_home.length; i++) {
-                console.log(data_home.results[i].title);
-            }
-            body.style.background = `url(https://image.tmdb.org/t/p/original${data_home.results[0].backdrop_path})`;
-            body.style.position = absolute;
+            console.log(data_home)
+            
+            var total_data = await fetch(`https://api.themoviedb.org/3/movie/popular`, options);
+            if(total_data.ok)
+                {
+                    responses = await total_data.json();
+                    highrate(responses, body)
+
+                    console.log("here")
+                    console.log(responses)
+                    new_ele1 = document.createElement(`div`);
+                    new_ele1.id = "line"
+                    movies.append(new_ele1)
+
+                        for(var i = 1; i < 9; i++)
+                        {
+                            new_ele = document.createElement(`div`);
+                            new_ele.id = "movie_layout"
+                            new_img = document.createElement('img');
+                            new_title = document.createElement('p');
+                            new_title.id = "movie_title";
+                            new_img.src = `https://image.tmdb.org/t/p/original${responses.results[i].poster_path}`
+                            new_img.style.width = "240px";
+                            build_lay(new_img, new_title, new_ele)
+                            new_ele1.append(new_ele)
+                        }
+
+                        setInterval(function(){
+                            randomize(responses, body)
+                            loop();
+                        } 
+                        , 5000);
+                    }                
         }
     } 
         catch (error) {
@@ -34,6 +98,12 @@ async function set()
         }
 }
 set()
+function display_bar()
+{
+    document.getElementById("name").style.display= "inline-flex";
+}
+ 
+
 async function getM()
 {
     const options = {
@@ -57,7 +127,7 @@ async function getM()
             // console.log(data.results[0].title);
             // console.log(data.results[i]);
             const body = document.querySelector('body');
-            body.append(page)
+            // body.append(page)
             for(var i = 0; i < data.results.length ; i++){
                 console.log(data.results[i]);
                 const new_div = document.createElement('div')
@@ -72,6 +142,7 @@ async function getM()
                     i++;
                     continue;
                 }
+
                 new_poster.src = "https://image.tmdb.org/t/p/w500/" + data.results[i].poster_path;
                 new_poster.style.width = "100%"
                 new_poster.style.height = "100%%"
@@ -95,21 +166,7 @@ async function getM()
                     new_div.style.transform = "scale(1)";
                 });
                 page.append(new_div);
-                // new_div.append(new_poster)
-                // new_poster.style.width = 500 + "px";
-                // new_div.style.background = "lime";
-                // new_div.style.display = "flex";
-                // new_div.style.flex_direction = "column";
-                // new_div.append(new_poster);
-                // console.log("https://image.tmdb.org/t/p/w500/" + data.results[i].poster_path)
             }
-            //     if( data.results.title === "the Hangover")
-                //         {
-                    //     img.src = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/" + data.results[i].backdrop_path
-                    // }
-                    
-                    // else
-                    // cons÷t dataa =  data.array();
                 }
             } catch (error) {
                 console.log("photo not available")
