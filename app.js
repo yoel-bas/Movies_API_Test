@@ -22,26 +22,54 @@ function highrate(array, body){
                         title.innerHTML = array.results[k].title;
                         des.innerHTML = array.results[k].overview;
 }
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    // The maximum is inclusive and the minimum is inclusive
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-  
-  function randomize(array, body){
-      randomNum = getRandomInt(0, 7);
-      console.log(randomNum)
-      new_bg = document.getElementById("backdrop")
-      var title = document.getElementById("title");
-      var des = document.getElementById("description");
-    if(!array.results[randomNum].overview)
-        return
-    title.innerHTML = array.results[randomNum].title.toUpperCase();
-    des.innerHTML = array.results[randomNum].overview;
-    new_bg.src = `https://image.tmdb.org/t/p/original${array.results[randomNum].backdrop_path}`;
-    // body.prepend(new_bg);
+
+let k = -1;
+function getRandomInt() {
+    if(k > 7 )
+        k = 0;
+    return k++;
 }
+
+function randomize(array, body){
+    randomNum = getRandomInt();
+    console.log(randomNum)
+    new_bg = document.getElementById("backdrop")
+    var title = document.getElementById("title");
+    var des = document.getElementById("description");
+    const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiN2FhMTgyNDIwMDQ2M2Q4MjU0YTc1YzEwODE2NWQyOSIsInN1YiI6IjY2NGRlYzQwNjE4NmRlZGQ3YzA2MTIyZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.C4pkljTBym5mxAnOKvFF509JyMq0leCBwbNl68c7f_U'
+        }
+      };
+    var response;
+    fetch(`https://api.themoviedb.org/3/movie/${array.results[randomNum].id}/images`, options)
+    .then(response => response.json())
+    .then(response => {
+        console.log(response)
+      for(var i = 0; i < 100; i++)
+            {
+                if(response.logos[i].iso_639_1 === "en")
+                    break;
+            }
+            title.src = `https://image.tmdb.org/t/p/original${response.logos[i].file_path}`;
+            title.style.height = "450px"
+            if(!array.results[randomNum].overview)
+                return
+            des.innerHTML = array.results[randomNum].overview;
+                console.log("hehe" +  "1")
+                new_bg.src = `https://image.tmdb.org/t/p/original${array.results[randomNum].backdrop_path}`;
+
+    })
+    
+}
+
+
+
+
+
+
 async function set()
 { 
     const options = {
@@ -65,15 +93,17 @@ async function set()
                 {
                     responses = await total_data.json();
                     highrate(responses, body)
-
+                    
                     console.log("here")
                     console.log(responses)
                     new_ele1 = document.createElement(`div`);
                     new_ele1.id = "line"
                     movies.append(new_ele1)
-
-                        for(var i = 1; i < 9; i++)
+                    
+                    for(var i = 1; i < 9; i++)
                         {
+
+                            var logo_i = 
                             new_ele = document.createElement(`div`);
                             new_ele.id = "movie_layout"
                             new_img = document.createElement('img');
@@ -86,6 +116,10 @@ async function set()
                         }
 
                         setInterval(function(){
+                            new_ig = document.getElementById("title")
+                            // new_ig.style.transform = "translate(10px, 10px)";
+                            // new_ig.style.transitionDuration = "1.5s";
+
                             randomize(responses, body)
                             loop();
                         } 
@@ -97,6 +131,7 @@ async function set()
             console.log(error);
         }
 }
+
 set()
 function display_bar()
 {

@@ -67,7 +67,24 @@ gap: 40px;
     position: absolute;
     -webkit-mask-image: linear-gradient( white 50%, transparent);
     mask-image: linear-gradient(white 50%, transparent);
+     /* transform: translate(10px, 10px); */
+    /* transition-duration: 1.5s;  */
+    animation: zoom-in 5s  infinite;
+    overflow: hidden;
 }
+
+  
+
+  @keyframes zoom-in {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.1);
+    }
+  }
+
+
 #logo{
     z-index: 60;
     width: 200px;
@@ -170,31 +187,50 @@ h1{
     display: inline-flex;
     flex-direction: column;
     z-index: 100;
-
-    margin-top: 25%;
-    width: 25%;
-    height: 40% ;
-    gap: 10%;
+    margin-top: 5%;
+    width: 30%;
+    height: 70% ;
+    /* border: solid yellow; */
 }
 #title{
     color: rgb(255, 255, 255);
+    width: 100%;
+    height: 500px;
+    /* border: solid yellow; */
     position: relative;
     text-align: center;
     font-weight: bolder;
+    animation: zoom-in 5s infinite;
 }
+@keyframes zoom_up {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-10);
+    }
+  }
+
 #description{
+    height: auto;
     color: white;
-    font-family: "Poppins", sans-serif;
-    text-align: left;
+    font-family: "Chaparral Pro", sans-serif;
+    font-size: x-large;
+    font-weight: bolder;
+    font-style: normal;
+    text-align: center;
+    /* border: solid yellow; */
 }
 #choice{
-    margin-left: 1%;
+    margin-left: 8%;
     display: flex;
     justify-content: start;
     align-items: center;
     gap: 30px;
+    margin-top: 40px;
 }
 #icon{
+    transition: all;
     border: white solid;
     border-radius: 25px;
     width: 40%;
@@ -202,8 +238,20 @@ h1{
     font-family: "Poppins", sans-serif;
     color: white;
     font-size: x-large;
-
+    
 }
 #icon:hover{
-    background-color: rgb(107, 105, 105);
+    transform: translateX(-2px) translateY(-2px);
+    transition-duration: 1s;
+    background-color: #d4dccd7d;
+    color: rgba(35, 3, 3, 0.531);
+}
+#comp{
+    /* border: solid red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    gap: 30px;
+    height: 80%;
 }
