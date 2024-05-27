@@ -14,12 +14,17 @@
     <title>Document</title>
 </head>
 <body>
-        <div id="page">
+
+        <div  onclick="hide()" id="page">
             <img src="mflexf.jpeg" alt="" id="logo">
             <div id="navbar">
                 <div id="division">
                     <p>HOME</p>
-                    <p>CATEGORY</p>
+                    <div id="Cat" onclick="Tap()">
+                        GENRES
+                        <nav id="catg">
+                        </nav>
+                    </div>
                     <p>FAV</p>
                 </div>
                 <div id="search">
@@ -27,23 +32,47 @@
                     <button  onclick="display_bar()"><i id="ico-s" class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
             </div>
-        <div id="details">
-            <div id="comp">
-                <img src="" id="title" alt="">
-                <p id="description"></p>
+            <div id="details">
+                <div id="comp">
+                    <img src="" id="title" alt="">
+                    <p id="description"></p>
+                </div>
+                <div id="choice">
+                    <button id="icon"> Watch</button>
+                    <button id="icon">Learn more <i class="fa-solid fa-angle-right"></i></button>
+                </div>
             </div>
-            <div id="choice">
-                <button id="icon"> Watch</button>
-                <button id="icon">Learn more <i class="fa-solid fa-angle-right"></i></button>
-            </div>
-        </div>
         </div>
         <div id="movies"> 
             <div id="viral">
                 <h1>Popular movies</h1>
-                <div id="line" ></div>
-            </div>   
+                <div id="movies1" class="animation" onclick="get_info(`${id}`)" > </div>
+                <div id="movies2" class="animation" onclick="get_info(`${id}`)"> </div>
+                <div id="movies3" class="animation" onclick="get_info(`${id}`)"> </div>
+                <div id="movies4" class="animation" onclick="get_info(`${id}`)"> </div>
+                <div id="movies5" class="animation" onclick="get_info(`${id}`)"> </div>
+                <div id="movies6" class="animation" onclick="get_info(`${id}`)"> </div>
+                <div id="movies7" class="animation" onclick="get_info(`${id}`)"> </div>
+                <div id="movies8" class="animation" onclick="get_info(`${id}`)"> </div>
+                </div>   
         </div>
+    <!-- </div> -->
+    <div id="movied">
+        <div id="ytholder">
+            <iframe id="Yt" src="" frameborder="0" width="1400" height="447" autoplay=1 allow="autoplay"></iframe>
+        </div>
+        <div id="dets">
+            <p id="mt"></p>
+            <p id="original language" style="margin-left: 20px;">   </p>
+            <p id="original title" style="margin-left: 20px;"></p>
+            <p id="Rating" style="margin-left: 20px;"></p>
+            <p id="md" style="margin-left: 20px;"></p>
+            <p id="genres" style="margin-left: 20px;"></p>
+            <p id="runtime" style="margin-left: 20px;"></p>
+            <p id="actors"  style="margin-left: 20px;"></p>
+        </div>
+
+    </div>
     <script src="app.js"></script>
 </body>
 </html>
