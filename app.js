@@ -1,3 +1,134 @@
+// var titles;
+function collection()
+{
+    const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiN2FhMTgyNDIwMDQ2M2Q4MjU0YTc1YzEwODE2NWQyOSIsInN1YiI6IjY2NGRlYzQwNjE4NmRlZGQ3YzA2MTIyZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.C4pkljTBym5mxAnOKvFF509JyMq0leCBwbNl68c7f_U'
+        }
+      };
+      
+      fetch('https://api.themoviedb.org/3/genre/movie/list', options)
+        .then(response => response.json())
+        .then(response => {
+            for(var coll = 0; coll <20; coll++)
+                {
+                    let new_coll = document.createElement('div');
+                    let new_Head = document.createElement('h1');
+                    new_Head.innerHTML = response.genres[coll].name;
+                    new_coll.id = response.genres[coll].name + ":" + response.genres[coll].id;
+
+                    // new_coll.prepend(new_Head);
+                    const options = {
+                        method: 'GET',
+                        headers: {
+                            accept: 'application/json',
+                            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiN2FhMTgyNDIwMDQ2M2Q4MjU0YTc1YzEwODE2NWQyOSIsInN1YiI6IjY2NGRlYzQwNjE4NmRlZGQ3YzA2MTIyZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.C4pkljTBym5mxAnOKvFF509JyMq0leCBwbNl68c7f_U'
+                        }
+                    };
+                    
+                    fetch(`https://api.themoviedb.org/3/discover/movie?with_genres=${response.genres[coll].id}`, options)
+                    .then(res => res.json())
+                    .then(res => {
+                        
+                        // let h_id = response.genres[coll].id;
+                        for(var m_c = 0; m_c < 20; m_c++)
+                            {
+                                        let new_mov = document.createElement('div');
+                                        let imgm = document.createElement('img');
+                                        imgm.src = `https://image.tmdb.org/t/p/original${res.results[m_c].poster_path}`
+                                        let idd = res.results[m_c].id
+                                        imgm.style.width = "240px";
+                                        new_mov.append(imgm);
+                                        new_mov.addEventListener('click', function() {
+                                            get_info(idd);
+                                        });
+                                        new_mov.classList.add("animation")
+                                        new_coll.style.position = "relative";
+                                        new_coll.style.left = "45%";
+                                        // new_coll.style.width = "7000px";
+
+                                    // }
+                                    new_coll.append(new_mov);
+                                }
+                                let new_div = document.createElement('div')
+                                // new_div.style.width = "240px";
+                                // new_div.style.display = "flex";
+                                // new_div.style.background = "#3a3838d6"
+                                // new_div.style.flexDirection = "column"
+                                // new_div.style.justifyContent = "center"
+                                let ti = document.createElement('h1')
+                                let btn = document.createElement('button')
+                                btn.style.width = "100px"
+                                btn.style.backgroundColor = "#00000087";
+                                btn.style.color = "white"
+                                btn.style.position = "absolute";
+                                btn.innerHTML = `<i class="fa-solid fa-chevron-right"></i>`
+                                btn.style.left = "40%"
+                                btn.style.fontSize = "50px"
+                                btn.style.height = "100%";
+                                btn.id = "next-p"
+                                var slide = 0;
+                                let btn_r = document.createElement('button')
+                                btn_r.style.width = "100px"
+                                btn_r.style.backgroundColor = "#00000087";
+                                btn_r.style.color = "white"
+                                btn_r.style.position = "absolute";
+                                btn_r.innerHTML = `<i class="fa-solid fa-chevron-left"></i>`
+                                btn_r.style.left = "0%"
+                                btn_r.style.fontSize = "50px"
+                                btn_r.style.height = "100%";
+                                btn_r.style.display = "none"
+                                btn.addEventListener('click', function() {
+                                    ++slide;
+                                    console.log(slide)
+                                    if(slide >= 2)
+                                            btn.style.display = "none" 
+                                        new_coll.style.transform = `translateX(${slide * -2200}px)`;
+                                        new_coll.style.transitionDuration = "1s";
+                                        btn.style.transform = `translateX(${slide * 2200}px)`;
+                                        btn_r.style.transform = `translateX(${slide * 2200}px)`;
+                                        btn.style.transitionDuration = "0s";
+                                        btn_r.style.display = "block";
+                                        // btn_r.style.transitionDuration = "0s";
+
+                                })
+                                btn_r.addEventListener('click', function() {
+                                    console.log(slide);
+                                    slide -= 1;
+                                    if (slide === 0) {
+                                        btn_r.style.display = "none";
+                                    }
+                                    new_coll.style.transform = `translateX(${slide * -2200}px)`;
+                                    new_coll.style.transitionDuration = "1.4s";
+                                    btn.style.transform = `translateX(${slide * 2200}px)`;
+                                    btn_r.style.transform = `translateX(${slide * 2200}px)`;
+                                    btn.style.transitionDuration = "0s";
+                                    btn.style.display = "block";
+                                });
+
+                                new_coll.append(btn);
+                                new_coll.append(btn_r);
+                                ti.id = "explr"
+                                ti.innerHTML = `More <br>  <i class="fa-solid fa-arrow-right"></i>`;
+                                new_div.append(ti)
+                                new_div.id = "Explore"
+                                new_coll.append(new_div);
+                                // new_coll.style.overflow = "clip"
+                                document.getElementById("movies").append(new_Head)
+                                // document.getElementById("movies").append(btn)
+                                new_coll.style.display = "flex";
+                                new_coll.style.gap = "50px"
+                                new_coll.style.marginLeft = "700px"
+                                document.getElementById("movies").append(new_coll)
+                                // document.getElementById("movies").style.overflow = "hidden";
+                        })
+                        .catch(err => console.error(err));
+                }
+        })
+        .catch(err => console.error(err));
+}
 
 function build_lay(one, two, container){
     container.prepend(two)
@@ -34,7 +165,7 @@ function getRandomInt()
         function randomize(array, body){
             randomNum = getRandomInt();
             console.log(randomNum)
-            new_bg = document.getElementById("backdrop")
+            let new_bg = document.getElementById("backdrop")
             var title = document.getElementById("title");
             var des = document.getElementById("description");
             const options = {
@@ -102,33 +233,34 @@ async function set()
                     new_ele1.id = "line"
                     movies.append(new_ele1)
                     
-                    for(var i = 1; i < 9; i++)
-                        {
-                            new_ele = document.getElementById(`movies${i}`);
-                            new_ele.id = `movie_layout:${responses.results[i].id}`
-                            new_img = document.createElement('img');
-                            new_title = document.createElement('p');
-                            new_title.id = "movie_title";
-                            new_img.src = `https://image.tmdb.org/t/p/original${responses.results[i].poster_path}`
-                            var descc =  responses.results[i].overview;
-                            new_img.style.width = "240px";
-                            build_lay(new_img, new_title, new_ele)
-                            new_ele1.append(new_ele)
+                    // for(var i = 1; i < 9; i++)
+                    //     {
+                    //         new_ele = document.getElementById(`movies${i}`);
+                    //         new_ele.id = `movie_layout:${responses.results[i].id}`
+                    //         new_img = document.createElement('img');
+                    //         new_title = document.createElement('p');
+                    //         new_title.id = "movie_title";
+                    //         new_img.src = `https://image.tmdb.org/t/p/original${responses.results[i].poster_path}`
+                    //         var descc =  responses.results[i].overview;
+                    //         new_img.style.width = "240px";
+                    //         build_lay(new_img, new_title, new_ele)
+                    //         new_ele1.append(new_ele)
                             
-                        }
+                    //     }
 
                         setInterval(function(){
                             new_ig = document.getElementById("title")
                             randomize(responses, body)
                             loop();
-                        } 
+                        }
                         , 5000);
                     }                
-        }
-    } 
-        catch (error) {
-            console.log(error);
-        }
+                }
+            } 
+            catch (error) {
+                console.log(error);
+            }
+            collection();
 }
 
 set()
@@ -188,14 +320,12 @@ function Tap(){
                     console.log(response + "|")
             }
         )
-        .catch(err => console.error(err));
+        .catch(err);
  }
-Categories();
+// Categories();
 
-function get_info(id)
+function get_info(s_id)
 {
-
-    var s_id = id.split(":")[1];
     console.log(s_id);
     var movies_box = document.getElementById("movied")
     movies_box.style.display = "flex";
@@ -206,9 +336,6 @@ function get_info(id)
         @keyframes fadeIn {
             0% {
                 scale: 0.8;
-            }
-            50% {
-                scale: 1.2;
             }
             100%{
                 scale: 1
@@ -333,6 +460,7 @@ async function getM()
                 new_div.style.padding = "1%"
                 new_div.style.cursor = "pointer";
                 new_div.style.padding = "10px"
+                new_div.addEventListener("click")
                 new_div.addEventListener("mouseover", function(){
                     new_div.style.transform = "scale(1.1)";
                 });
