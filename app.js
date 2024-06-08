@@ -58,7 +58,7 @@ function collection()
                                 // new_div.style.background = "#3a3838d6"
                                 // new_div.style.flexDirection = "column"
                                 // new_div.style.justifyContent = "center"
-                                let ti = document.createElement('h1')
+                                let ti = document.createElement('a')
                                 let btn = document.createElement('button')
                                 btn.style.width = "100px"
                                 btn.style.backgroundColor = "#00000087";
@@ -110,8 +110,9 @@ function collection()
 
                                 new_coll.append(btn);
                                 new_coll.append(btn_r);
+                                ti.href = "category.html"
                                 ti.id = "explr"
-                                ti.innerHTML = `More <br>  <i class="fa-solid fa-arrow-right"></i>`;
+                                ti.innerHTML = `More <br />  <i class="fa-solid fa-chevron-right"></i>`;
                                 new_div.append(ti)
                                 new_div.id = "Explore"
                                 new_coll.append(new_div);
